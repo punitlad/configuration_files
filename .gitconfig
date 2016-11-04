@@ -1,0 +1,21 @@
+[alias]
+	st = status
+	ci = commit 
+	cia = commit --amend
+	ciane = commit --amend --no-edit
+	pom = push -u origin master
+	cim = commit -m
+	diffc = diff --cached
+[user]
+	name = Punit Lad
+	email = punitlad@gmail.com
+[push]
+	default = simple
+[core]
+	excludesfile = /Users/plad/.gitglobalignore
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
