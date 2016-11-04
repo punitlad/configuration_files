@@ -6,13 +6,10 @@
 	pom = push -u origin master
 	cim = commit -m
 	diffc = diff --cached
-[user]
-	name = Punit Lad
-	email = punitlad@gmail.com
 [push]
 	default = simple
 [core]
-	excludesfile = /Users/plad/.gitglobalignore
+	excludesfile = ~/.gitglobalignore
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
