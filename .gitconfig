@@ -1,3 +1,5 @@
+[include]
+	path = ~/.gitconfig_personal
 [alias]
 	st = status
 	ci = commit 
