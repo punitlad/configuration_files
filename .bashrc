@@ -7,7 +7,7 @@ export GOPATH=$HOME/go
 export PATH=$HOME/.jenv/bin:~/Library/Python/3.6/bin/:$PATH
 eval "$(jenv init -)"
 
-function volume() {ddd
+function volume() {
 	echo "Setting Volume to $1"
 	sudo osascript -e "set Volume $1"
 }
@@ -66,12 +66,6 @@ alias gsd="git stash drop"
 alias gco="git checkout"
 alias gci="git commit"
 
-# mvn alias
-alias mci="mvn clean install"
-alias mcisbr="mvn clean install spring-boot:run"
-alias mcist="mvn clean install -DskipTests"
-
 # bash alias
 alias size="du -h"
 alias ls="ls -a"
-
