@@ -8,13 +8,13 @@
 	pom = push -u origin master
 	cim = commit -m
 	diffc = diff --cached
+	lg = log --pretty=oneline --abbrev-commit
+	local = log origin/master..HEAD --pretty=oneline
+	showname = show --name-only
+	update-remote-branches = remote prune origin
+	urb = remote prune origin
+	pr = pull --rebase 
 [push]
 	default = simple
 [core]
 	excludesfile = ~/.gitignore_global
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
