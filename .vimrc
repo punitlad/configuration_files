@@ -7,6 +7,7 @@ set history=50				" keep 50 lines of command line history
 set ruler				" show the cursor position all the time
 set showcmd				" display incomplete commands
 set incsearch				" do incremental searching
+set number
 
 :set cursorline
 :hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
@@ -29,13 +30,11 @@ if has('mouse')
   set mouse=a
 endif
 
-au BufNewFile,BufRead *.thor setf ruby
-au BufNewFile,BufRead .bashrc*,bashrc,bash.bashrc,.bash_profile*,.bash_logout*,*.bash,*.ebuild call SetFileTypeSH("bash")
+"au BufNewFile,BufRead *.thor setf ruby
+"au BufNewFile,BufRead .bashrc*,bashrc,bash.bashrc,.bash_profile*,.bash_logout*,*.bash,*.ebuild call SetFileTypeSH("bash")
 
 set nobackup
 set nowritebackup
 
-call plug#begin('~/.vim/plugged')
-call plug#end()
-
-" Plugin 'rust-lang/rust.vim'
+" call plug#begin('~/.vim/plugged')
+" call plug#end()
