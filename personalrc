@@ -1,0 +1,26 @@
+# app alias
+alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
+alias love="/Applications/love.app/Contents/MacOS/love"
+eval $(thefuck --alias)
+alias crap=fuck
+alias bashsc=bindkey
+
+# apache alias
+alias apache_start='sudo apachectl start'
+alias apache_restart='sudo apachectl restart'
+alias apache_stop='sudo apachectl stop'
+
+# bash alias
+alias size="du -h"
+alias ls="ls -a"
+
+function clear_postman() {
+    echo 'rm -rf $HOME/Library/Application\ Support/Postman/IndexedDB/'
+        rm -r -i $HOME/Library/Application\ Support/Postman/IndexedDB/
+}
+
+function clear_docker_images() {
+	docker rmi -f $(docker images -aq)
+}
+
+ZSH_THEME="Avit"

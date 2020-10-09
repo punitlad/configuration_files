@@ -1,37 +1,46 @@
 #!/bin/bash
+ 
+install_brew() {
+    if ! [ -x "$(command -v brew)" ]; then
+        echo "Installing brew..."
+	    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
+}
 
-if ! [ -x "$(command -v bash)" ]; then
-	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-fi
-brew update && brew upgrade
+install_oh_my_zsh() {
+    echo "Installing oh-my-zsh..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+}
 
-cask_packages=( iterm2 brave-browser 1password intellij-idea visual-studio-code slack zoomus caffeine dash docker firefox franz keybase nordvpn postman simplenote spectacle steam vlc )
-for i in "${cask_packages[@]}";
-do
-	if brew cask ls --versions $i > /dev/null; then
-  		echo "$i is already installed. skipping"
-	else
-  		brew cask install $i
-	fi
-done
+install_personalrc() {
+    echo "Updating personal shell configuration..."
+    cp personalrc ~/.personalrc
+    echo "source ~/.personalrc" >> ~/.zshrc
+}
 
-packages=( wget java awscli git gradle jq kops kubernetes-cli lua maven node openssl pwgen postgresql python python3 readline redis sbt scala terraform thefuck watch wget )
-for i in "${packages[@]}";
-do
-	if brew ls --versions $i > /dev/null; then
-		echo "$i is already installed. skipping"
-	else
-		brew install $i
-	fi
-done
+install_vimrc() {
+    echo "Updating vim configuration..."
+    cp vimrc ~/.vimrc
+}
 
-#sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-#brew install sqlcl
+install_gitconfig() {
+    echo "Updating global git configuration..."
+    cp gitconfig ~/.gitconfig
+    cp gitignore_global ~/.gitignore_global
+}
 
-cp .bashrc ~/.bashrc
-cp .vimrc ~/.vimrc
-cp .gitconfig ~/.gitconfig
-cp .gitignore_global ~/.gitignore_global
-source ~/.bashrc
+print_message() {
+    echo "Things to do manually..."
+    echo "Create and update .gitconfig_personal..."
+    echo "Update ssh keys..."
+    echo "source ~/.zshrc..."
+    echo "Install Firefox and Brave bookmarks"
+}
 
-# setup .gitconfig_personal here [user and token] 
+install_brew
+brew bundle
+install_oh_my_zsh
+install_personalrc
+install_vimrc
+install_gitconfig
+print_message

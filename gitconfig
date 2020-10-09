@@ -2,6 +2,7 @@
 	path = ~/.gitconfig_personal
 [alias]
 	st = status
+	co = checkout
 	ci = commit 
 	cia = commit --amend
 	ciane = commit --amend --no-edit
@@ -9,12 +10,23 @@
 	cim = commit -m
 	diffc = diff --cached
 	lg = log --pretty=oneline --abbrev-commit
+	oneline = log --oneline
+	oneline-stats = log --oneline --stat
 	local = log origin/master..HEAD --pretty=oneline
 	showname = show --name-only
 	update-remote-branches = remote prune origin
 	urb = remote prune origin
 	pr = pull --rebase 
+	sp = stash pop
+	ss = stash save
+	sl = stash list
+	sd = stash drop
 [push]
 	default = simple
 [core]
 	excludesfile = ~/.gitignore_global
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
