@@ -29,6 +29,12 @@ install_gitconfig() {
     cp gitignore_global ~/.gitignore_global
 }
 
+install_sshconfig() {
+	echo "Creating .ssh/ and updating config file"
+	mkdir ~/.ssh/
+	cp sshconfig ~/.ssh/config
+}
+
 print_message() {
     echo "Things to do manually..."
     echo "Create and update .gitconfig_personal..."
@@ -43,4 +49,5 @@ install_oh_my_zsh
 install_personalrc
 install_vimrc
 install_gitconfig
+install_sshconfig
 print_message
