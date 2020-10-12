@@ -1,0 +1,14 @@
+{
+    "explorer.confirmDelete": false,
+    "window.zoomLevel": 1,
+    "editor.minimap.enabled": false,
+    "files.autoSave": "onFocusChange",
+    "workbench.colorTheme": "Monokai Dimmed",
+    "workbench.preferredDarkColorTheme": "Monokai Dimmed",
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "zenMode.hideStatusBar": false,
+    "zenMode.hideLineNumbers": false,
+    "zenMode.hideActivityBar": false,
+    "terminal.external.osxExec": "iTerm.app"
+}

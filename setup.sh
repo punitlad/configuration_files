@@ -42,11 +42,10 @@ set_mac_configuration() {
     defaults write com.apple.dock recent-apps {}
     defaults write com.apple.dock magnification -bool false
     defaults write com.apple.dock autohide -bool true
-    defaults write com.apple.dock tilesize -integer 10
-    defaults write com.apple.dock autohide -bool true
+    defaults write com.apple.dock tilesize -integer 20
     defaults write com.apple.dock show-recents -bool false
-    defaults write com.apple.dock autohide-delay -float 0
-    defaults write com.apple.dock autohide-time-modifier -float 0
+    defaults write com.apple.dock autohide-delay -float 2
+    defaults write com.apple.dock autohide-time-modifier -float 2
 
     # Mission Control / Spaces things 
     defaults write com.apple.dock mru-spaces -bool false
@@ -88,6 +87,19 @@ set_mac_configuration() {
     defaults write NSGlobalDomain AppleShowAllExtensions -bool true
     defaults write com.apple.finder ShowStatusBar -bool true
     defaults write com.apple.finder ShowPathbar -bool true
+
+	# System UI Bar
+	defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.bluetooth" -bool true
+	defaults write com.apple.systemuiserver menuExtras -array-add "/System/Library/CoreServices/Menu Extras/Bluetooth.menu"
+	defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.volume" -bool true
+	defaults write com.apple.systemuiserver menuExtras -array-add "/System/Library/CoreServices/Menu Extras/Volume.menu"
+
+    # Shortcuts
+    # remove cmd+shift+a from shortcut 
+}
+
+install_vscodesettings() {
+    cp vscodesettings.json ~/Library/Application\ Support/Code/User/settings.json
 }
 
 print_message() {
@@ -104,5 +116,7 @@ print_message() {
 # install_vimrc
 # install_gitconfig
 # install_sshconfig
-set_mac_configuration
+# set_mac_configuration
+install_vscodesettings
 # print_message
+# vscode settings
