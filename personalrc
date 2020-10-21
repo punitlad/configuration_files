@@ -25,3 +25,5 @@ function clear_docker_images() {
 
 ZSH_THEME="Avit"
 PROMPT='%{$fg[yellow]%}[%D{%f/%m/%y} %D{%L:%M:%S}] '$PROMPT
+
+eval $(ssh-agent)
