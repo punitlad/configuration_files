@@ -66,6 +66,7 @@ set_mac_configuration() {
     # Trackpad things
     defaults write NSGlobalDomain com.apple.swipescrolldirection -bool true
     defaults write NSGlobalDomain com.apple.trackpad.scaling -int 3
+	defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerHorizSwipeGesture -int 0
 
     # Set Canada Things
     defaults write NSGlobalDomain AppleLanguages -array "en-CA"
