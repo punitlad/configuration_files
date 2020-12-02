@@ -1,41 +1,41 @@
 #!/bin/bash
  
-install_brew() {
+brew() {
     if ! [ -x "$(command -v brew)" ]; then
         echo "Installing brew..."
 	    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     fi
 }
 
-install_oh_my_zsh() {
+ohmyzsh() {
     echo "Installing oh-my-zsh..."
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 }
 
-install_personalrc() {
+personalrc() {
     echo "Updating personal shell configuration..."
     cp personalrc ~/.personalrc
     echo "source ~/.personalrc" >> ~/.zshrc
 }
 
-install_vimrc() {
+vimrc() {
     echo "Updating vim configuration..."
     cp vimrc ~/.vimrc
 }
 
-install_gitconfig() {
+gitconfig() {
     echo "Updating global git configuration..."
     cp gitconfig ~/.gitconfig
     cp gitignore_global ~/.gitignore_global
 }
 
-install_sshconfig() {
+sshconfig() {
 	echo "Creating .ssh/ and updating config file"
 	mkdir ~/.ssh/
 	cp sshconfig ~/.ssh/config
 }
 
-set_mac_configuration() {
+macconfig() {
     # Dock things
     defaults write com.apple.dock persistent-others {}
     defaults write com.apple.dock persistent-apps {}
@@ -99,7 +99,7 @@ set_mac_configuration() {
     # remove cmd+shift+a from shortcut 
 }
 
-install_vscodesettings() {
+vscode() {
     cp vscodesettings.json ~/Library/Application\ Support/Code/User/settings.json
 }
 
@@ -110,14 +110,4 @@ print_message() {
     echo "source ~/.zshrc..."
 }
 
-# install_brew
-# brew bundle
-# install_oh_my_zsh
-# install_personalrc
-# install_vimrc
-# install_gitconfig
-# install_sshconfig
-# set_mac_configuration
-install_vscodesettings
-# print_message
-# vscode settings
+$1
