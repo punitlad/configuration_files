@@ -14,6 +14,9 @@ alias apache_stop='sudo apachectl stop'
 alias size="du -h"
 alias ls="ls -a"
 
+# firefox 
+alias firefox=/Applications/Firefox.app/Contents/MacOS/firefox
+
 function clear_postman() {
     echo 'rm -rf $HOME/Library/Application\ Support/Postman/IndexedDB/'
         rm -r -i $HOME/Library/Application\ Support/Postman/IndexedDB/
@@ -30,3 +33,5 @@ eval $(ssh-agent)
 ssh-add -K ~/.ssh/personal/id_rsa
 ssh-add -K ~/.ssh/work/id_rsa
 eval "$(direnv hook zsh)"
+
+source ~/.workrc
