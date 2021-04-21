@@ -5,6 +5,9 @@ brew() {
         echo "Installing brew..."
 	    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     fi
+
+    echo "Homebrew installed. Running brew bundle"
+    brew bundle -v
 }
 
 ohmyzsh() {
@@ -15,7 +18,18 @@ ohmyzsh() {
 personalrc() {
     echo "Updating personal shell configuration..."
     cp personalrc ~/.personalrc
-    echo "source ~/.personalrc" >> ~/.zshrc
+    read -p "Enter shell rc file path: " shellrcfilepath
+    if [ -z "$shellrcfilepath" ]
+    then
+        echo "No shell rc file path given. Exiting..."
+        exit 1
+    fi
+    echo "source ~/.personalrc" >> $shellrcfilepath
+}
+
+workrc() {
+    echo "Generating empty workrc file" 
+    touch ~/.workrc
 }
 
 vimrc() {
@@ -27,6 +41,15 @@ gitconfig() {
     echo "Updating global git configuration..."
     cp gitconfig ~/.gitconfig
     cp gitignore_global ~/.gitignore_global
+
+    echo "Setup username and email for git"
+    read -p "Enter your full name: " name
+    read -p "Enter your personal git email: " email
+    sed "s/gitemailid/$email/g; s/gitfullname/$name/g" gitconfig_personal > ~/.gitconfig_personal
+
+    echo "Setting up Git configuration for work"
+    read -p "Enter your work git email: " workemail
+    sed "s/gitemailid/$workemail/g; s/gitfullname/$name/g" gitconfig_personal > ~/.gitconfig_work
 }
 
 sshconfig() {
@@ -35,79 +58,18 @@ sshconfig() {
 	cp sshconfig ~/.ssh/config
 }
 
-macconfig() {
-    # Dock things
-    defaults write com.apple.dock persistent-others {}
-    defaults write com.apple.dock persistent-apps {}
-    defaults write com.apple.dock recent-apps {}
-    defaults write com.apple.dock magnification -bool false
-    defaults write com.apple.dock autohide -bool true
-    defaults write com.apple.dock tilesize -integer 20
-    defaults write com.apple.dock show-recents -bool false
-    defaults write com.apple.dock autohide-delay -float 2
-    defaults write com.apple.dock autohide-time-modifier -float 2
-
-    # Mission Control / Spaces things 
-    defaults write com.apple.dock mru-spaces -bool false
-
-    # Keyboard Things
-    defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
-    defaults write NSGlobalDomain KeyRepeat -int 1
-    defaults write NSGlobalDomain InitialKeyRepeat -int 10
-
-    # Autocorrection Things
-    defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
-    defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
-    defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
-    defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
-    defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
-    defaults write NSGlobalDomain NSUserDictionaryReplacementItems {}
-
-    # Trackpad things
-    defaults write NSGlobalDomain com.apple.swipescrolldirection -bool true
-    defaults write NSGlobalDomain com.apple.trackpad.scaling -int 3
-	defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerHorizSwipeGesture -int 0
-
-    # Set Canada Things
-    defaults write NSGlobalDomain AppleLanguages -array "en-CA"
-    defaults write NSGlobalDomain AppleLocale -string "en_CA@currency=CAD"
-    defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimetres"
-    defaults write NSGlobalDomain AppleMetricUnits -bool true
-
-    # Lock Screen Things
-    defaults write com.apple.screensaver askForPassword -int 1
-    defaults write com.apple.screensaver askForPasswordDelay -int 0
-
-    # Screenshot Things
-    defaults write com.apple.screencapture location -string "${HOME}/Desktop"
-    defaults write com.apple.screencapture type -string "png"
-    defaults write com.apple.screencapture disable-shadow -bool true
-
-    # Finder things
-    defaults write com.apple.finder AppleShowAllFiles -bool true
-    defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-    defaults write com.apple.finder ShowStatusBar -bool true
-    defaults write com.apple.finder ShowPathbar -bool true
-
-	# System UI Bar
-	defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.bluetooth" -bool true
-	defaults write com.apple.systemuiserver menuExtras -array-add "/System/Library/CoreServices/Menu Extras/Bluetooth.menu"
-	defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.volume" -bool true
-	defaults write com.apple.systemuiserver menuExtras -array-add "/System/Library/CoreServices/Menu Extras/Volume.menu"
-
-    # Shortcuts
-    # remove cmd+shift+a from shortcut 
-}
-
 vscode() {
     cp vscodesettings.json ~/Library/Application\ Support/Code/User/settings.json
 }
 
+macconfig() {
+    ./mac_config.sh
+}
+
 print_message() {
     echo "Things to do manually..."
-    echo "Create and update .gitconfig_personal..."
-    echo "Update ssh keys..."
-    echo "source ~/.zshrc..."
+    echo "Create work and personal ssh keys..."
+    echo "You may need to log in and out for mac os configurations to be reflected..."
 }
 
 $1

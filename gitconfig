@@ -1,7 +1,7 @@
 [alias]
 	st = status
 	co = checkout
-	ci = commit 
+	ci = commit
 	cia = commit --amend
 	ciane = commit --amend --no-edit
 	pom = push -u origin master
@@ -14,11 +14,13 @@
 	showname = show --name-only
 	update-remote-branches = remote prune origin
 	urb = remote prune origin
-	pr = pull --rebase 
+	pr = pull --rebase
 	sp = stash pop
 	ss = stash save
 	sl = stash list
 	sd = stash drop
+[commit]
+	gpgsign = true
 [push]
 	default = simple
 [core]
@@ -28,3 +30,7 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[include]
+	path = ~/.gitconfig_personal
+[includeIf "gitdir:~/projects/work/"]
+	path = ~/.gitconfig_work

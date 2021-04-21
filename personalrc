@@ -14,7 +14,7 @@ alias apache_stop='sudo apachectl stop'
 alias size="du -h"
 alias ls="ls -a"
 
-# firefox 
+# firefox
 alias firefox=/Applications/Firefox.app/Contents/MacOS/firefox
 
 function clear_postman() {
@@ -37,5 +37,6 @@ eval "$(direnv hook zsh)"
 export GOPATH=/Users/punitlad/go
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 export PATH=$PATH:/Users/punitlad/.krew/bin:$GOPATH/bin
+export GPG_TTY=$(tty)
 
 source ~/.workrc

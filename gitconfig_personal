@@ -1,0 +1,9 @@
+[user]
+	name = gitfullname
+	email = gitemailid
+[author]
+	name = gitfullname
+	email = gitemailid
+[committer]
+	name = gitfullname
+	email = gitemailid
