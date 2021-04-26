@@ -1,8 +1,8 @@
 Host github-personal
 	HostName github.com
-	User github-personal-username 
+	User git 
 	IdentityFile ~/.ssh/personal/id_rsa
 Host github-work
 	HostName github.com
-	User github-work-username
+	User git
 	IdentityFile ~/.ssh/work/id_rsa
