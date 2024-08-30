@@ -65,7 +65,6 @@ macconfig() {
 
 print_message() {
     echo "Things to do manually..."
-    echo "Create work and personal ssh keys..."
     echo "You may need to log in and out for mac os configurations to be reflected..."
 }
 
