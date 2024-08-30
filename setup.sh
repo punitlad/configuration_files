@@ -1,10 +1,7 @@
 #!/bin/bash
  
-brew() {
-    if ! [ -x "$(command -v brew)" ]; then
-        echo "Installing brew..."
-	    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    fi
+brewinstall() {
+    # add check for if brew is installed
 
     echo "Homebrew installed. Running brew bundle"
     brew bundle -v
@@ -59,11 +56,11 @@ sshconfig() {
 }
 
 vscode() {
-    cp vscodesettings.json ~/Library/Application\ Support/Code/User/settings.json
+    cp vscodesettings.json ~/Library/Application\ Support/VSCodium/User/settings.json
 }
 
 macconfig() {
-    ./mac_config.sh
+    ./macconfig.sh
 }
 
 print_message() {

@@ -1,9 +1,14 @@
 # app alias
-alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
+alias code="/Applications/VSCodium.app/Contents/Resources/app/bin/codium"
+alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
 alias love="/Applications/love.app/Contents/MacOS/love"
 eval $(thefuck --alias)
 alias crap=fuck
 alias bashsc=bindkey
+alias size="du -h"
+alias brave='open -a "Brave Browser.app"'
+
+idea() { /Applications/IntelliJ\ IDEA.app/Contents/MacOS/idea $* &> /dev/null &| }
 
 # apache alias
 alias apache_start='sudo apachectl start'
@@ -17,26 +22,105 @@ alias ls="ls -a"
 # firefox
 alias firefox=/Applications/Firefox.app/Contents/MacOS/firefox
 
-function clear_postman() {
-    echo 'rm -rf $HOME/Library/Application\ Support/Postman/IndexedDB/'
-        rm -r -i $HOME/Library/Application\ Support/Postman/IndexedDB/
+function docker_run_image_sleep_infinity() {
+	docker run -d $1 sleep infinity
 }
 
-function clear_docker_images() {
+function docker_exec() {
+	docker exec -it $1 /bin/bash
+}
+
+function docker_clean_images() {
 	docker rmi -f $(docker images -aq)
 }
 
+function docker_prune() {
+	docker system prune -a --volumes
+}
+
+function kubectleverywhere() {
+	moveon=0
+	[[ "$1" == "get" ]] && moveon=1;
+	[[ "$1" == "describe" ]] && moveon=1;
+	if [[ "$moveon" == 0 ]]; then; echo "must be a get or describe kubectl command"; return 1; fi;
+
+	for i in $(kubectx); do kubectx $i; kubectl $@; done;
+}
+
+function kubectlgetall {
+  for i in $(kubectl api-resources --verbs=list --namespaced -o name | grep -v "events.events.k8s.io" | grep -v "events" | sort | uniq); do
+    kubectl -n ${1} get --ignore-not-found ${i}
+  done
+}
+
+function cleanup_caches() {
+	docker system prune -a --volumes 
+	brew cleanup -s
+	sudo rm -rf `brew --cache`
+}
+
+function workmode() {
+	echo "Switching default browser to brave"
+	sudo cp ~/.etchosts.work /etc/hosts
+	defaultbrowser browser
+}
+
+function homemode() {
+	echo "Switching default browser to firefox"
+	sudo cp ~/.etchosts.home /etc/hosts
+	defaultbrowser firefox
+}
+
+
 ZSH_THEME="Avit"
+source $(brew --prefix)/opt/spaceship/spaceship.zsh
+export SPACESHIP_AWS_SHOW=false
+export SPACESHIP_KUBECTL_SHOW=false
+export SPACESHIP_EXEC_TIME_SHOW=false
+export SPACESHIP_AWS_PREFIX=""
+export SPACESHIP_KUBECTL_PREFIX=""
+export SPACESHIP_KUBECTL_VERSION_SHOW=false
 PROMPT='%{$fg[yellow]%}[%D{%f/%m/%y} %D{%L:%M:%S}] '$PROMPT
 
 eval $(ssh-agent)
-ssh-add -K ~/.ssh/personal/id_rsa
-ssh-add -K ~/.ssh/work/id_rsa
+# ssh-add --apple-use-keychain ~/.ssh/home
 eval "$(direnv hook zsh)"
 
-export GOPATH=/Users/punitlad/go
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-export PATH=$PATH:/Users/punitlad/.krew/bin:$GOPATH/bin
+export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
 export GPG_TTY=$(tty)
+
+export PATH=$PATH:$HOME/.krew/bin:$HOME/.local/bin
+export PATH="$PATH:/Applications/IntelliJ IDEA.app/Contents/MacOS"
+
+# goenv
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+eval "$(goenv init -)"
+export PATH="$GOROOT/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# rbenv
+export PATH="$PATH:$HOME/.rbenv/bin"
+eval "$(rbenv init -)"
+
+# jenv
+export PATH="$PATH:$HOME/.jenv/bin"
+eval "$(jenv init -)"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# sdkman
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 source ~/.workrc
