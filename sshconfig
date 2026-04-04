@@ -1,8 +1,3 @@
-Host github-personal
-	HostName github.com
-	User git 
-	IdentityFile ~/.ssh/personal/id_rsa
-Host github-work
-	HostName github.com
-	User git
-	IdentityFile ~/.ssh/work/id_rsa
+Include /Users/punitlad/.colima/ssh_config
+Host *
+  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"

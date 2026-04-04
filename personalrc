@@ -59,19 +59,6 @@ function cleanup_caches() {
 	sudo rm -rf `brew --cache`
 }
 
-function workmode() {
-	echo "Switching default browser to brave"
-	sudo cp ~/.etchosts.work /etc/hosts
-	defaultbrowser browser
-}
-
-function homemode() {
-	echo "Switching default browser to firefox"
-	sudo cp ~/.etchosts.home /etc/hosts
-	defaultbrowser firefox
-}
-
-
 ZSH_THEME="Avit"
 source $(brew --prefix)/opt/spaceship/spaceship.zsh
 export SPACESHIP_AWS_SHOW=false
@@ -83,13 +70,12 @@ export SPACESHIP_KUBECTL_VERSION_SHOW=false
 PROMPT='%{$fg[yellow]%}[%D{%f/%m/%y} %D{%L:%M:%S}] '$PROMPT
 
 eval $(ssh-agent)
-# ssh-add --apple-use-keychain ~/.ssh/home
 eval "$(direnv hook zsh)"
 
 export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
 export GPG_TTY=$(tty)
 
-export PATH=$PATH:$HOME/.krew/bin:$HOME/.local/bin
+export PATH=$PATH:$HOME/.krew/bin:$HOME/.local/bin:$HOME/.bin
 export PATH="$PATH:/Applications/IntelliJ IDEA.app/Contents/MacOS"
 
 # goenv
@@ -122,5 +108,13 @@ eval "$(jenv init -)"
 # sdkman
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# perl
+PATH="/Users/punitlad/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/Users/punitlad/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/Users/punitlad/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/Users/punitlad/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/punitlad/perl5"; export PERL_MM_OPT;
+source ~/perl5/perlbrew/etc/bashrc
 
 source ~/.workrc

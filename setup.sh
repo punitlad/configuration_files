@@ -53,6 +53,8 @@ sshconfig() {
 	echo "Creating .ssh/ and updating config file"
 	mkdir ~/.ssh/
 	cp sshconfig ~/.ssh/config
+
+    cp 1passwordagent.toml ~/.config/1Password/ssh/agent.toml
 }
 
 vscode() {
