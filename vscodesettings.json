@@ -13,5 +13,7 @@
     "terminal.external.osxExec": "iTerm.app",
     "claudeCode.preferredLocation": "sidebar",
     "geminicodeassist.displayInlineContextHint": false,
-    "claudeCode.useTerminal": true
+    "claudeCode.useTerminal": true,
+    "explorer.confirmDragAndDrop": false,
+    "git.openRepositoryInParentFolders": "never"
 }
